@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    
+    header {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 1rem 0;
+    }
+    
+    #form-section {
+        margin: 2rem;
+    }
+    
+    form {
+        background-color: #f7f7f7;
+        padding: 1rem;
+        border-radius: 8px;
+    }
+    
+    form h2 {
+        margin-top: 1.5rem;
+    }
+    
+    form label {
+        display: block;
+        margin-top: 0.5rem;
+    }
+    
+    form input,
+    form textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-top: 0.2rem;
+    }
+    
+    button {
+        background-color: #333;
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 1rem;
+    }
+    
+    #resume-preview {
+        margin: 2rem;
+    }
+    
+    #preview-content {
+        border: 1px solid #ccc;
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: #f7f7f7;
+        overflow-wrap: break-word;
+    }
+    #preview-content h3 {
+        color: #007bff; /* Blue color */
+    }
+    
+    /* Education and Experience Headers */
+    #preview-content h4 {
+        color: #28a745; /* Green color */
+    }
+    
+    /* Personal Information and Education Text */
+    #preview-content p {
+        color: #333; /* Default color */
+    }
+    
+    /* Experience Text */
+    #preview-content #experience {
+        color: #dc3545; /* Red color */
+    }</style>
+    <title>Resume Generator</title>
+</head>
+<body>
+    <header>
+        <h1>Resume Generator</h1>
+    </header>
+    <section id="form-section">
+        <form id="resume-form">
+            <h2>Personal Information</h2>
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="fullname" required>
+            <label for="email">Email Address:</label>
+            <input type="text" id="email" name="email" required>
+            <label for="contact">Contact No.:</label>
+            <input type="text" id="contact" name="contact" required>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+
+            <h2>Education</h2>
+            <label for="twelfth">12th marks :</label>
+            <input type="text" id="twelfth" name="twelfth" required>
+            <label for="twelfth">12th Board :</label>
+            <input type="text" id="twelfth" name="twelfth" required>
+            <label for="tenth">10th marks :</label>
+            <input type="text" id="tenth" name="tenth" required>
+            <label for="twelfth">10th Board :</label>
+            <input type="text" id="tenth" name="tenth" required>
+
+            <h2>Experience</h2>
+            <label for="experience">Work Experience:</label>
+            <textarea id="experience" name="experience" rows="4"></textarea>
+
+            <button type="submit">Generate Resume</button>
+        </form>
+    </section>
+    <section id="resume-preview">
+        <h2>Preview</h2>
+        <div id="preview-content">
+            <!-- The generated resume will be displayed here -->
+        </div>
+        <button id="download-button">Download Resume</button>
+    </section>
+    
+    <script>document.getElementById("resume-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+    
+        // Retrieve form data
+        const fullName = document.getElementById("fullname").value;
+        const email = document.getElementById("email").value;
+        const contact = document.getElementById("contact").value;
+        const address = document.getElementById("address").value;
+        const twelfth  = document.getElementById("twelfth").value;
+        
+        const tenth = document.getElementById("tenth").value;
+        const experience = document.getElementById("experience").value;
+    
+        // Create the resume content
+        const resumeContent = `
+            <h3>${fullName}</h3>
+            <p>Email: ${email}</p>
+            <p>Contact No.: ${contact}</p>
+            <p>Address: ${address}</p>
+            <h4>Education</h4>
+            <p>12th marks and Board Name: ${twelfth}</p>
+            <p>10th marks and Board Name: ${tenth}</p>
+            <h4>Experience</h4>
+            <p>${experience}</p>
+        `;
+    
+        // Display the generated resume content
+        document.getElementById("preview-content").innerHTML = resumeContent;
+        const previewContent = document.getElementById("preview-content");
+        previewContent.innerHTML = resumeContent;
+    
+        // Enable the download button
+        const downloadButton = document.getElementById("download-button");
+        downloadButton.addEventListener("click", function() {
+            downloadResume("resume.html", previewContent.innerHTML);
+        });
+    });
+    
+    // Function to generate a downloadable resume
+    function downloadResume(filename, content) {
+        const element = document.createElement("a");
+        element.setAttribute("href", "data:text/html;charset=utf-8," + encodeURIComponent(content));
+        element.setAttribute("download", filename);
+      
+        element.style.display = "none";
+        document.body.appendChild(element);
+      
+        element.click();
+      
+        document.body.removeChild(element);
+    };
+    </script>
+</body>
+</html>
